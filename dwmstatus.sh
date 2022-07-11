@@ -4,11 +4,14 @@ while true
 do
 	# Battery
 	battpercent=$(acpi -b | grep -P -o '[0-9]+(?=%)')
-	plugged=$(acpi -b | grep -o -F "Charging")
-	if [ "$plugged" == "Charging" ]; then
+	charging=$(acpi -b | grep -o -F "Charging")
+	discharging=$(acpi -b | grep -o -F "Disharging")
+	if [ "$charging" == "Charging" ]; then
 		battsymbol=""
-	else
+	elif [ "$discharging" == "Discharging" ]; then
 		battsymbol=""
+	else
+		battsymbol=""
 	fi
 	batt="$battsymbol $battpercent%"
 
