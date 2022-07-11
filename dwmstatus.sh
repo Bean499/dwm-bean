@@ -5,7 +5,7 @@ do
 	# Battery
 	battpercent=$(acpi -b | grep -P -o '[0-9]+(?=%)')
 	charging=$(acpi -b | grep -o -F "Charging")
-	discharging=$(acpi -b | grep -o -F "Disharging")
+	discharging=$(acpi -b | grep -o -F "Discharging")
 	if [ "$charging" == "Charging" ]; then
 		battsymbol=""
 	elif [ "$discharging" == "Discharging" ]; then
