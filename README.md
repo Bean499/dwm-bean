@@ -15,6 +15,7 @@ cp ./dwmstatus.sh ~/.config/dwm/dwmstatus.sh
 Patches are sourced from [here](https://github.com/bakkeby/patches/tree/master/dwm). Many thanks to **bakkeby** for curating such a wonderful little collection of patches.
 - Autostart - automatically runs `~/.config/dwm/autostart.sh` on startup, which in turn runs `~/.config/dwm/dwmstatus.sh`
 - Centered Window Name - centers the window name in the status bar
+- Cycle Layouts - adds a hotkey to cycle through lots of layouts, rather than being limited to the default of changing to a set one
 - Move Center - adds a hotkey to move a floating window to the center of the screen
 - Spotify Workaround - allows window rules to apply to Spotify
 - Steam - fixes some buggy behaviour with steam
