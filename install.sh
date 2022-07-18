@@ -4,7 +4,7 @@ shopt -s dotglob
 rm -rf out
 mkdir out
 for file in dwm/*; do
-	cp $file out/
+	cp -r $file out/
 done
 cp config.h out/
 cd out
@@ -12,4 +12,4 @@ for patch in ../patches/*; do
 	git apply $patch;
 done
 make
-sudo make install
+sudo make clean install
