@@ -13,3 +13,6 @@ for patch in ../patches/*; do
 done
 make
 sudo make clean install
+mkdir -p ~/.config/dwm/
+cp ./dwmstatus.sh ~/.config/dwm/dwmstatus.sh
+cp ./autostart.sh ~/.config/dwm/autostart.sh
