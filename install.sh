@@ -1,6 +1,6 @@
 #!/bin/bash
 shopt -s dotglob
-# git submodule update --init --recursive
+git submodule update --init --recursive
 rm -rf out
 mkdir out
 for file in dwm/*; do
@@ -14,5 +14,7 @@ done
 make
 sudo make clean install
 mkdir -p ~/.config/dwm/
-cp ./dwmstatus.sh ~/.config/dwm/dwmstatus.sh
-cp ./autostart.sh ~/.config/dwm/autostart.sh
+
+cp ../dwmstatus ~/.local/bin/dwmstatus
+cp ../refresh-bar ~/.local/bin/refresh-bar
+cp ../autostart.sh ~/.config/dwm/autostart.sh
