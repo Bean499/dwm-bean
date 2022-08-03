@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+song () {
+	# Song
+	song=$(playerctl metadata title)
+
+	if [ "$song" == "" ]; then
+		song=""
+	else
+		song=" [ $song] "
+	fi
+}
+
+vol () {
+	# Volume
+	volpercent=$(pamixer --get-volume-human)
+	if [ "$volpercent" == "muted" ]; then
+		volpercent="M"
+	fi
+	vol=" [墳 $volpercent] "
+}
+
+batt () {
+	# Battery
+	battpercent=$(acpi -b | grep -P -o '[0-9]+(?=%)')
+	charging=$(acpi -b | grep -o -F "Charging")
+	discharging=$(acpi -b | grep -o -F "Discharging")
+	if [ "$charging" == "Charging" ]; then
+		battsymbol=""
+	elif [ "$discharging" == "Discharging" ]; then
+		battsymbol=""
+	else
+		battsymbol=""
+	fi
+	batt=" [$battsymbol $battpercent%] "
+}
+
+date () {
+	date=" [ $(date +%d/%m/%Y)] "
+}
+
+time () {
+	time=" [ $(date +%H:%M:%S)] "
+}
+
+status () {
+	song
+	vol
+	batt
+	date
+	time
+	text="$song$vol$batt$date$time"
+}
+
+while true
+do
+	status
+	xsetroot -name "$text"
+	sleep 0.5
+done
