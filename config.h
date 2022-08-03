@@ -45,6 +45,7 @@ static const Rule rules[] = {
 	{ "feh",		  	NULL,       NULL,       0,	 	      1,           -1 },
 	{ "Lutris",		  	NULL,       NULL,       0,	 	      1,           -1 },
 	{ "Steam",		  	NULL,       NULL,       0,	 	      1,           -1 },
+	{ "Galculator",	  	NULL,       NULL,       0,	 	      1,           -1 },
 	{ NULL,			  	"floaterm", NULL,       0,	 	      1,           -1 },
 };
 
@@ -94,7 +95,8 @@ static const char *dmenucmd[] = { "/home/bean/.scripts/misc/dmenu.sh", "-m", dme
 /* static const char *winmenu[] = { "rofi", "-show", "window", NULL }; */
 
 /* terminal */
-static const char *termcmd[]  = { "kitty", "-T", "term", NULL };
+static const char *termcmd[]  = { "kitty", NULL };
+/* static const char *termcmd[]  = { "kitty", "-T", "term", NULL }; */
 /* static const char *termcmd[]  = { "tabbed", "-d", "-c", "-r", "2", "st", "-w", "''", NULL }; */
 /* static const char *termcmd[]  = { "st", NULL }; */
 /* static const char *floaterm[] = { "/home/bean/.scripts/misc/floaterm.sh", NULL }; */
@@ -118,14 +120,14 @@ static const char *clearnotifs[] 	= { "dunstctl", "close-all", NULL };
 static const char *clearwidgets[] 	= { "eww", "close-all", NULL };
 
 /* Volume */
-static const char *upvol[]   	= { "pamixer", "-i", "5",     NULL };
-static const char *downvol[] 	= { "pamixer", "-d", "5",     NULL };
-static const char *mutevol[] 	= { "pamixer", "-t", NULL };
+static const char *upvol[]   	= { "pamixer", "-i", "5", "&", "refresh-bar", NULL };
+static const char *downvol[] 	= { "pamixer", "-d", "5", "&", "refresh-bar", NULL };
+static const char *mutevol[] 	= { "pamixer", "-t", "&", "refresh-bar", NULL };
 
 /* Media */
 static const char *playpause[]	 	= { "playerctl", "play-pause", NULL };
-static const char *next[]			= { "playerctl", "next", NULL };
-static const char *prev[]			= { "playerctl", "previous", NULL };
+static const char *next[]			= { "playerctl", "next", "&", "refresh-bar", NULL };
+static const char *prev[]			= { "playerctl", "previous", "&", "refresh-bar", NULL };
 static const char *print[]			= { "scrot", "-e", "mv $f ~/Screenshots/ 2>/dev/null & notify-send --icon=image-missing 'Screenshot taken.'", NULL };
 
 static const char *browser[]		= { "qutebrowser", NULL };
