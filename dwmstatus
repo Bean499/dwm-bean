@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 song () {
 	# Song
@@ -35,11 +35,8 @@ batt () {
 	batt=" [$battsymbol $battpercent%] "
 }
 
-date () {
+datetime () {
 	date=" [ $(date +%d/%m/%Y)] "
-}
-
-time () {
 	time=" [ $(date +%H:%M:%S)] "
 }
 
@@ -47,8 +44,7 @@ status () {
 	song
 	vol
 	batt
-	date
-	time
+	datetime
 	text="$song$vol$batt$date$time"
 }
 
@@ -56,5 +52,5 @@ while true
 do
 	status
 	xsetroot -name "$text"
-	sleep 0.5
+	sleep 1s
 done
