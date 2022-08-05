@@ -37,16 +37,17 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     isfloating   monitor */
-	{ "Spotify",  		NULL,       NULL,       1 << 3,       0,           0  },
-	{ "discord",  		NULL,       NULL,       1 << 4,       0,           0  },
-	{ "qutebrowser",  	NULL,       NULL,       1 << 0,       0,           1  },
-	{ "mpv",		  	NULL,       NULL,       0,	 	      1,           -1 },
-	{ "feh",		  	NULL,       NULL,       0,	 	      1,           -1 },
-	{ "Lutris",		  	NULL,       NULL,       0,	 	      1,           -1 },
-	{ "Steam",		  	NULL,       NULL,       0,	 	      1,           -1 },
-	{ "Galculator",	  	NULL,       NULL,       0,	 	      1,           -1 },
-	{ NULL,			  	"floaterm", NULL,       0,	 	      1,           -1 },
+	/* class      		instance    title       	tags mask     isfloating   monitor */
+	{ "Spotify",  		NULL,       NULL,       	1 << 2,       0,           0  },
+	{ NULL,		  		NULL,       "spotify-tui", 	1 << 3,       0,           0  },
+	{ "discord",  		NULL,       NULL,       	1 << 4,       0,           0  },
+	{ "qutebrowser",  	NULL,       NULL,       	1 << 0,       0,           1  },
+	{ "mpv",		  	NULL,       NULL,       	0,	 	      1,           -1 },
+	{ "feh",		  	NULL,       NULL,       	0,	 	      1,           -1 },
+	{ "Lutris",		  	NULL,       NULL,       	0,	 	      1,           -1 },
+	{ "Steam",		  	NULL,       NULL,       	0,	 	      1,           -1 },
+	{ "Galculator",	  	NULL,       NULL,       	0,	 	      1,           -1 },
+	{ NULL,			  	"floaterm", NULL,       	0,	 	      1,           -1 },
 };
 
 /* layout(s) */
@@ -120,14 +121,17 @@ static const char *clearnotifs[] 	= { "dunstctl", "close-all", NULL };
 static const char *clearwidgets[] 	= { "eww", "close-all", NULL };
 
 /* Volume */
-static const char *upvol[]   	= { "pamixer", "-i", "5", "&", "refresh-bar", NULL };
-static const char *downvol[] 	= { "pamixer", "-d", "5", "&", "refresh-bar", NULL };
-static const char *mutevol[] 	= { "pamixer", "-t", "&", "refresh-bar", NULL };
+static const char *upvol[]   	= { "pamixer", "-i", "5",  NULL };
+static const char *downvol[] 	= { "pamixer", "-d", "5", NULL };
+static const char *mutevol[] 	= { "pamixer", "-t", NULL };
+
+/* Refresh bar */
+static const char *refreshbar[]	= { "refresh-bar", NULL };
 
 /* Media */
 static const char *playpause[]	 	= { "playerctl", "play-pause", NULL };
-static const char *next[]			= { "playerctl", "next", "&", "refresh-bar", NULL };
-static const char *prev[]			= { "playerctl", "previous", "&", "refresh-bar", NULL };
+static const char *next[]			= { "playerctl", "next", NULL };
+static const char *prev[]			= { "playerctl", "previous", NULL };
 static const char *print[]			= { "scrot", "-e", "mv $f ~/Screenshots/ 2>/dev/null & notify-send --icon=image-missing 'Screenshot taken.'", NULL };
 
 static const char *browser[]		= { "qutebrowser", NULL };
@@ -181,14 +185,19 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,	XK_space,  togglefloating, {0} },
 
 	/* volume keys */
-	{ NULL,					XF86XK_AudioRaiseVolume, 	spawn, {.v = upvol   } },
-	{ NULL,					XF86XK_AudioLowerVolume, 	spawn, {.v = downvol } },
-	{ NULL,					XF86XK_AudioMute, 			spawn, {.v = mutevol } },
+	{ NULL,					XF86XK_AudioRaiseVolume,	spawn, {.v = upvol   } },
+	{ NULL,					XF86XK_AudioRaiseVolume,	spawn, {.v = refreshbar   } },
+	{ NULL,					XF86XK_AudioLowerVolume,	spawn, {.v = downvol } },
+	{ NULL,					XF86XK_AudioLowerVolume,	spawn, {.v = refreshbar   } },
+	{ NULL,					XF86XK_AudioMute,			spawn, {.v = mutevol } },
+	{ NULL,					XF86XK_AudioMute,			spawn, {.v = refreshbar   } },
 
 	/* media keys */
 	{ NULL,					XF86XK_AudioPlay, 			spawn, {.v = playpause } },
 	{ NULL,					XF86XK_AudioNext, 			spawn, {.v = next } },
+	{ NULL,					XF86XK_AudioNext,			spawn, {.v = refreshbar   } },
 	{ NULL,					XF86XK_AudioPrev, 			spawn, {.v = prev } },
+	{ NULL,					XF86XK_AudioPrev,			spawn, {.v = refreshbar   } },
 
 	/* print & colour picker */
 	{ NULL,					XK_Print, 	spawn, 		{.v = print } },
