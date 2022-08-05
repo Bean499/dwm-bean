@@ -4,4 +4,4 @@
 #See the following video:
 #https://www.youtube.com/watch?v=NuS_JLkQbKc
 
-kill "$(pstree -lp | grep -- -bash\([0-9] | sed "s/.*sleep(\([0-9]\+\)).*/\1/")"
+kill "$(pstree -lp | grep -- -dwmstatus\([0-9] | sed "s/.*sleep(\([0-9]\+\)).*/\1/")"
