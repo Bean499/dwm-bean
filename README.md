@@ -3,14 +3,10 @@ This repository contains my preferred DWM configuration and patches.
 ## Installation
 To install, simply run the premade install script.
 ```sh
-chmod +x ./install.sh
-./install.sh
+chmod +x ./install-dwm.sh
+./install-dwm.sh
 ```
-You will also want to move `autostart.sh` and `dwmstatus.sh` into `~/.config/dwm`:
-```sh
-cp ./autostart.sh ~/.config/dwm/autostart.sh
-cp ./dwmstatus.sh ~/.config/dwm/dwmstatus.sh
-```
+This will both compile DWM as well as copy the scripts to their respective locations. Make sure that you have `~/.local/bin/` added to your `$PATH` so that the `bar` and `refresh-bar` scripts can be run correctly.
 ## Patches
 Patches are sourced from [here](https://github.com/bakkeby/patches/tree/master/dwm). Many thanks to **bakkeby** for curating such a wonderful little collection of patches.
 - Autostart - automatically runs `~/.config/dwm/autostart.sh` on startup, which in turn runs `dwmstatus`
