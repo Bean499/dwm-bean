@@ -2,7 +2,7 @@
 
 song () {
 	# Song
-	song=$(playerctl metadata title)
+	song=$(playerctl metadata title -s)
 
 	if [ "$song" == "" ]; then
 		song=""
@@ -36,7 +36,7 @@ batt () {
 }
 
 datetime () {
-	date=" [ $(date +%d/%m/%Y)] "
+	date=" [ $(date +%a) $(date +%d/%m/%Y)] "
 	time=" [ $(date +%H:%M:%S)] "
 }
 
