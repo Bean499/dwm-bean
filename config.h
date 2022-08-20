@@ -7,6 +7,8 @@
 /* media keys */
 #include <X11/XF86keysym.h>
 
+/* APPEARANCE ------------------------------------------------------------------------------------- */
+
 /* gaps */
 static const unsigned int gappih    = 25;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 25;       /* vert inner gap between windows */
@@ -18,7 +20,7 @@ static       int smartgaps          = 0;        /* 1 means no outer gap when the
 #include "vanitygaps.c"
 
 /* appearance */
-static const unsigned int borderpx  = 5;        /* border pixel of windows */
+static const unsigned int borderpx  = 0;        /* border pixel of windows */
 static const unsigned int snap      = 16;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -27,6 +29,8 @@ static const int vertpadbar         = 2;        /* vertical padding for statusba
 static const char *fonts[]          = { "monospace:size=10",
 										"CozetteVector:size=10"};
 static const char dmenufont[] = "monospace:size=10";
+
+/* TAGS ------------------------------------------------------------------------------------------- */
 
 /* tagging */
 static const char *tags[] = { "I", "II", "III", "IV", "V" };
@@ -42,6 +46,7 @@ static const Rule rules[] = {
 	{ NULL,		  		NULL,       "spotify-tui", 	1 << 3,       0,           0  },
 	{ "discord",  		NULL,       NULL,       	1 << 4,       0,           0  },
 	{ "qutebrowser",  	NULL,       NULL,       	1 << 0,       0,           1  },
+	{ "kdeconnect.app", NULL,       NULL,       	1 << 1,       0,           1  },
 	{ "mpv",		  	NULL,       NULL,       	0,	 	      1,           -1 },
 	{ "feh",		  	NULL,       NULL,       	0,	 	      1,           -1 },
 	{ "Lutris",		  	NULL,       NULL,       	0,	 	      1,           -1 },
@@ -50,7 +55,8 @@ static const Rule rules[] = {
 	{ NULL,			  	"floaterm", NULL,       	0,	 	      1,           -1 },
 };
 
-/* layout(s) */
+/* LAYOUTS ---------------------------------------------------------------------------------------- */
+
 static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
@@ -58,6 +64,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
+	{ "[C]",      centeredmaster },
 	{ "[T]",      tile },    /* first entry is default */
 	/* { "[M]",      monocle }, */
 	/* { "[@]",      spiral }, */
@@ -69,24 +76,12 @@ static const Layout layouts[] = {
 	/* { "###",      nrowgrid }, */
 	/* { "---",      horizgrid }, */
 	/* { ":::",      gaplessgrid }, */
-	{ "[C]",      centeredmaster },
 	/* { ">M>",      centeredfloatingmaster }, */
 	{ "[F]",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
 
-/* key definitions */
-#define MODKEY Mod4Mask
-#define TAGKEYS(KEY,TAG) \
-	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
-
-/* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
-
-/* commands */
+/* COMMANDS --------------------------------------------------------------------------------------- */
 
 /* dmenu commands - required by source, would love to remove since i don't use dmenu :[
 maybe one day i will muster the effort to change the source code so i can remove these */
@@ -116,19 +111,19 @@ static const char *emojimenu[] = { "rofimoji", NULL };
 /* colour picker */
 static const char *colourpick[] = { "farge", "--notify", NULL };
 
-/* Clear stuff */
+/* clear stuff */
 static const char *clearnotifs[] 	= { "dunstctl", "close-all", NULL };
 static const char *clearwidgets[] 	= { "eww", "close-all", NULL };
 
-/* Volume */
+/* volume */
 static const char *upvol[]   	= { "pamixer", "-i", "5",  NULL };
 static const char *downvol[] 	= { "pamixer", "-d", "5", NULL };
 static const char *mutevol[] 	= { "pamixer", "-t", NULL };
 
-/* Refresh bar */
+/* refresh bar */
 static const char *refreshbar[]	= { "refresh-bar", NULL };
 
-/* Media */
+/* media */
 static const char *playpause[]	 	= { "playerctl", "play-pause", NULL };
 static const char *next[]			= { "playerctl", "next", NULL };
 static const char *prev[]			= { "playerctl", "previous", NULL };
@@ -141,6 +136,19 @@ static const char *steam[]			= { "steam", NULL };
 static const char *discord[]		= { "discord", NULL };
 static const char *music[]			= { "spotify", NULL };
 static const char *pdf[]			= { "zathura", NULL };
+
+/* KEYS ------------------------------------------------------------------------------------------- */
+
+/* key definitions */
+#define MODKEY Mod4Mask
+#define TAGKEYS(KEY,TAG) \
+	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
+
+/* helper for spawning shell commands in the pre dwm-5.0 fashion */
+#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 static Key keys[] = {
 	/* modifier				key			function			argument */
@@ -223,6 +231,8 @@ static Key keys[] = {
 	{ MODKEY|ControlMask,	XK_q,		quit,		{0} },
 };
 
+/* MOUSE ------------------------------------------------------------------------------------------ */
+
 /* button definitions */
 /* click can be ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
 static Button buttons[] = {
@@ -237,4 +247,3 @@ static Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
