@@ -16,4 +16,5 @@ make
 sudo make clean install
 mkdir -p ~/.config/dwm/
 
-../install-scripts.sh
+cd ../
+./install-scripts.sh
