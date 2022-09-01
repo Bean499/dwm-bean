@@ -57,7 +57,7 @@ static const Rule rules[] = {
 
 /* LAYOUTS ---------------------------------------------------------------------------------------- */
 
-static const float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
+static const float mfact     = 0.35; /* factor of master area size [0.05..0.95] */
 static const int nmaster     = 1;    /* number of clients in master area */
 static const int resizehints = 1;    /* 1 means respect size hints in tiled resizals */
 static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen window */
@@ -117,6 +117,7 @@ static const char *clearwidgets[] 	= { "eww", "close-all", NULL };
 
 /* volume */
 static const char *upvol[]   	= { "pamixer", "-i", "5",  NULL };
+static const char *upvolnolimit[]   	= { "pamixer", "-i", "5", "--allow-boost",  NULL };
 static const char *downvol[] 	= { "pamixer", "-d", "5", NULL };
 static const char *mutevol[] 	= { "pamixer", "-t", NULL };
 
@@ -195,6 +196,8 @@ static Key keys[] = {
 	/* volume keys */
 	{ NULL,					XF86XK_AudioRaiseVolume,	spawn, {.v = upvol   } },
 	{ NULL,					XF86XK_AudioRaiseVolume,	spawn, {.v = refreshbar   } },
+	{ ShiftMask,			XF86XK_AudioRaiseVolume,	spawn, {.v = upvolnolimit   } },
+	{ ShiftMask,			XF86XK_AudioRaiseVolume,	spawn, {.v = refreshbar   } },
 	{ NULL,					XF86XK_AudioLowerVolume,	spawn, {.v = downvol } },
 	{ NULL,					XF86XK_AudioLowerVolume,	spawn, {.v = refreshbar   } },
 	{ NULL,					XF86XK_AudioMute,			spawn, {.v = mutevol } },
