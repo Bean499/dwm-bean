@@ -1,6 +1,6 @@
 #!/bin/sh
 
-song () {
+song() {
 	# Song
 	song=$(playerctl metadata title -s)
 
@@ -11,7 +11,7 @@ song () {
 	fi
 }
 
-vol () {
+vol() {
 	# Volume
 	volpercent=$(pamixer --get-volume-human)
 	if [ "$volpercent" == "muted" ]; then
@@ -20,7 +20,7 @@ vol () {
 	vol=" [墳 $volpercent] "
 }
 
-batt () {
+batt() {
 	# Battery
 	battpercent=$(acpi -b | grep -P -o '[0-9]+(?=%)')
 	charging=$(acpi -b | grep -o -F "Charging")
@@ -35,22 +35,34 @@ batt () {
 	batt=" [$battsymbol $battpercent%] "
 }
 
-datetime () {
+datetime() {
 	date=" [ $(date +%a) $(date +%d/%m/%Y)] "
-	time=" [ $(date +%H:%M:%S)] "
+	if [ "$1" == "false" ]; then
+		time=" [ $(date +%H) $(date +%M) $(date +%S)] "
+	else
+		time=" [ $(date +%H:%M:%S)] "
+	fi
 }
 
-status () {
+status() {
+	echo $1
 	song
 	vol
 	batt
-	datetime
+	datetime $1
 	text="$song$vol$batt$date$time"
 }
 
+colons="true"
+
 while true
 do
-	status
+	status $colons
 	xsetroot -name "$text"
+	if [ $colons == "true" ]; then
+		colons="false"
+	else
+		colons="true"
+	fi
 	sleep 1s
 done
